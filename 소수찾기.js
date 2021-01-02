@@ -11,7 +11,7 @@ function solution (numbers) {
     }
 
     function permu (n, idx, numlen) {
-        if (idx.len === numlen) return;
+        if (idx.length === numlen) return;
         for (var j = 0; j < numlen; j++) {
 
             var dup = false;

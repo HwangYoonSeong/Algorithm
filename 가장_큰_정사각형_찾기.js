@@ -77,9 +77,4 @@ function solution (board) {
 }
 
 
-출처: https://blog.sonim1.com/212 [Kendrick's Blog]
-
-
-
-
 console.log(solution([[0, 0, 0, 0]]));

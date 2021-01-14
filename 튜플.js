@@ -91,8 +91,8 @@ const solution = (s) => {
     for (let i = 1; i < arr.length; i++) {
         for (let j = 0; j < result.length; j++) {
             let index = arr[i].findIndex(v => v === result[j]);
-            if (index !== -1) {
-                arr[i][index] = -1;
+            if (index !== -1) {//중복되는 숫자가 있을 경우 
+                arr[i][index] = -1; //-1로 
             }
         }
         result.push(arr[i].filter(v => v !== -1)[0])

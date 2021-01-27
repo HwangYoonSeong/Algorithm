@@ -14,47 +14,81 @@ const getCombinations = function (arr, selectNumber) {
 
 function solution (orders, course) {
     var answer = [];
-    var temp = [];
-    orders.forEach((i) => {
-        course.forEach((j) => {
-            temp.push(getCombinations(i.split(''), j).map((el) => el.join('')));
+    var cByo = [];
+
+    course.forEach((j) => {
+        var temp = [];
+        orders.forEach((i) => {
+            temp.push(getCombinations(i.split(''), j).map((el) => el.sort().join('')));
         })
+        cByo.push(temp);
 
     })
-
+    console.log(cByo);
     var clist = [];
+    for (var i = 0; i < cByo.length; i++) {
 
-    for (var i = 0; i < temp.length; i++) {
-        for (var j = 0; j < temp[i].length; j++) {
-            clist.push(temp[i][j]);
+        var temp = [];
+
+        for (var j = 0; j < cByo[i].length; j++) {
+            for (var k = 0; k < cByo[i][j].length; k++) {
+
+                temp.push(cByo[i][j][k]);
+            }
         }
+        clist.push(temp)
     }
 
     console.log(clist);
-    var cSet = Array.from(new Set(clist));
+    var cSet = [];
+    clist.forEach((el) => {
+        cSet.push(Array.from(new Set(el)));
+    })
     console.log(cSet);
 
     var cCount = [];
     for (var i = 0; i < cSet.length; i++) {
-        var count = 0;
-        for (var j = 0; j < clist.length; j++) {
-            if (cSet[i] === clist[j]) count++;
-        }
-        cCount.push(count);
+        var temp = [];
+        for (var k = 0; k < cSet[i].length; k++) {
+            var count = 0;
 
+            for (var j = 0; j < clist.length; j++) {
+                for (var l = 0; l < clist[j].length; l++) {
+
+                    if (cSet[i][k] === clist[j][l]) count++;
+                }
+            }
+            temp.push(count);
+        }
+
+        cCount.push(temp);
     }
 
     console.log(cCount);
 
-    for (var i = 0; i < cSet.length; i++) {
-        if (cCount[i] >= 2) answer.push(cSet[i]);
+
+
+
+    for (var i = 0; i < cCount.length; i++) {
+        var max = Math.max.apply(null, cCount[i]);
+        if (max < 2) continue;
+        //console.log(max);
+        let pos = 0;
+        while (true) {
+            let foundPos = cCount[i].indexOf(max, pos);
+            if (foundPos == -1) break;
+            answer.push(cSet[i][foundPos])
+            //console.log(foundPos);
+            pos = foundPos + 1;
+        }
     }
 
+    answer.sort();
 
     return answer;
 }
 
-console.log(solution(["ABCFG", "AC", "CDE", "ACDE", "BCFG", "ACDEH"], [2, 3, 4]));
+console.log(solution(["XYZ", "XWY", "WXA"], [2, 3, 4]));
 
 
 

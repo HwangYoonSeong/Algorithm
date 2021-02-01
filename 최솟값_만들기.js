@@ -1,0 +1,18 @@
+function solution (A, B) {
+    var answer = 0;
+    A.sort((a, b) => {
+        return a - b;
+    })
+
+
+    B.sort((a, b) => {
+        return b - a;
+    })
+
+    for (var i = 0; i < A.length; i++) {
+        answer += (A[i] * B[i]);
+    }
+    return answer;
+}
+
+console.log(solution([1, 2], [3, 4]));

@@ -1,3 +1,14 @@
+
+function showMatrix (arr) {
+    arr.forEach((el) => {
+        var temp = [];
+        el.forEach((i) => {
+            temp.push(i);
+        })
+        console.log(temp.join(' '));
+    })
+}
+
 function rotate (key) {
     var rotated = [];
     for (var i = 0; i < key.length; i++) {
@@ -12,24 +23,7 @@ function rotate (key) {
     return rotated;
 }
 
-function downMove (key) {
-
-    key.unshift(new Array(key.length).fill(0));
-    key.pop()
-
-    return key;
-}
-
-function leftMove (key) {
-    for (var i = 0; i < key.length; i++) {
-        key[i].pop();
-        key[i].unshift(0);
-    }
-
-    return key;
-}
-
-function check (key, lock) {
+function check (key, lock, len) {
     var match = true;
 
     for (var k = 0; k <= lock.length - key.length; k++) {
@@ -43,9 +37,10 @@ function check (key, lock) {
                 }
 
             }
-
-            for (var i = 0; i < lock.length; i++) {
-                for (var j = 0; j < lock.length; j++) {
+            // showMatrix(tempLock);
+            // console.log();
+            for (var i = key.length - 1; i < key.length - 1 + len; i++) {
+                for (var j = key.length - 1; j < key.length - 1 + len; j++) {
                     if (tempLock[i][j] !== 1) {
                         match2 = false;
                         break;
@@ -68,31 +63,30 @@ function check (key, lock) {
 
 function solution (key, lock) {
     var answer = true;
-    answer = check(key, lock)
-    if (!answer) {
-        for (var k = 0; k < 4; k++) {//270도 회전 
-            var orgKey = JSON.parse(JSON.stringify(key));//deep copy
 
-            for (var i = 0; i < key.length - 1; i++) {
-                var orgKey2 = JSON.parse(JSON.stringify(key));//deep copy
-                for (var j = 0; j < key.length - 1; j++) {
+    var expendedLock = Array.from(Array(lock.length + 2 * (key.length - 1)), () => Array(lock.length + 2 * (key.length - 1)).fill(0))
 
-                    key = leftMove(key);
-                    answer = check(key, lock)
-                    if (answer) break;
 
-                }
-                if (answer) break;
-                key = downMove(orgKey2);
-            }
-            if (answer) break;
-            key = rotate(orgKey);
+    for (var i = key.length - 1; i < key.length - 1 + lock.length; i++) {
+        for (var j = key.length - 1; j < key.length - 1 + lock.length; j++) {
+
+            expendedLock[i][j] = lock[i - (key.length - 1)][j - (key.length - 1)];
         }
     }
 
+
+
+    //showMatrix(expendedLock);
+    for (var k = 0; k < 4; k++) {//270도 회전 
+        answer = check(key, expendedLock, lock.length)
+        if (answer) break;
+        key = rotate(key);
+
+    }
 
 
     return answer;
 }
 
 console.log(solution([[0, 0, 0], [1, 0, 0], [0, 1, 1]], [[1, 1, 1], [1, 1, 0], [1, 0, 1]]))
+

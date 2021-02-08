@@ -86,3 +86,38 @@ list.forEach((el, idx) => {
         answer++;
     }
 })
+
+
+//dfs
+function dfs (v) {
+    var stack = [];
+    stack.push(v);
+    while (stack.length) {
+        v = stack.pop();
+        if (visited[v] === false) {
+            visited[v] = true;
+            //console.log(v);
+            for (var i = n - 1; i > -1; i--) { //n은 정점의 개수
+
+                if (adj[v][i] && (visited[i] === -1)) stack.push(i);
+            }
+        }
+    }
+}
+
+//bfs
+function bfs (v) {
+    var queue = [];
+    queue.push(v);
+    while (queue.length) {
+        v = queue.shift();
+        if (visited[v] === false) {
+            visited[v] = true;
+            //console.log(v);
+            for (var i = 0; i < n; i++) {//n은 정점의 개수
+
+                if (adj[v][i] && (visited[i] === -1)) queue.push(i);
+            }
+        }
+    }
+}

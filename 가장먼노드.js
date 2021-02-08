@@ -142,36 +142,39 @@ console.log(solution(6, [[3, 6], [4, 3], [3, 2], [1, 3], [1, 2], [2, 4], [5, 2]]
 
 
 ////////////////////////////////////모범답안////////////////////////////////
-function solution2(n, edge) {
+//나의 코드는 edge 배열을 바탕으로 인접행렬을 생성해서 bfs하는 반면 
+//edge 배열로 바로 접근해서 bfs하는 것에서 나의 코드와 차이를 보인다 
+
+function solution2 (n, edge) {
     var answer = 0;
-    return bfs(edge,1,n);
+    return bfs(edge, 1, n);
 }
 
-function bfs2(arr,start,end){
-    var visited=new Array(end+1)
-    var level=new Array(end+1)
-    var queue=[start]
-    level[0]=0
-    level[start]=0
-    visited[start]=true
+function bfs2 (arr, start, end) {
+    var visited = new Array(end + 1)
+    var level = new Array(end + 1)
+    var queue = [start]
+    level[0] = 0
+    level[start] = 0
+    visited[start] = true
     var lev
-    while( queue.length){
-        
+    while (queue.length) {
+
         var node = queue.shift()
-        lev = level[node]+1
-        for( var edge of arr){
-            if(edge[0]==node && visited[edge[1]]==undefined) {
+        lev = level[node] + 1
+        for (var edge of arr) {
+            if (edge[0] == node && visited[edge[1]] == undefined) {
                 queue.push(edge[1])
-                visited[edge[1]]=true
-                level[edge[1]]=lev
+                visited[edge[1]] = true
+                level[edge[1]] = lev
             }
-            else if(edge[1]==node && visited[edge[0]]==undefined) {
+            else if (edge[1] == node && visited[edge[0]] == undefined) {
                 queue.push(edge[0])
-                visited[edge[0]]=true
-                level[edge[0]]=lev
+                visited[edge[0]] = true
+                level[edge[0]] = lev
             }
         }
     }
     console.log(level);
-    return level.filter((i)=>i==lev-1).length
+    return level.filter((i) => i == lev - 1).length
 }

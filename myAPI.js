@@ -15,9 +15,9 @@ function showMatrix (arr) {
 
 
 //2중 for문 
-for (var i = 2; i < 3; i++) {
+for (var i = 0; i < 3; i++) {
 
-    for (var j = 2; j < 3; j++) {
+    for (var j = 0; j < 3; j++) {
 
     }
 }

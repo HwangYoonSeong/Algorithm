@@ -51,6 +51,8 @@ function solution2 (begin, target, words) {
     return answer;
 }
 
+//bfs로 풀더라도 꼭 인접행렬이 필요한게 아니다. 
+//문제의 조건에 맞는 각 노드들의 관계로 인접행렬을 대신할 수 있다. 
 function solution (begin, target, words) {
     if (!words.includes(target)) return 0;
     let answer = 0;

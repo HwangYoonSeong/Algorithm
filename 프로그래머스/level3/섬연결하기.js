@@ -74,6 +74,8 @@ function solution2 (n, costs) {
 }
 
 // 모범 답안 (Union-Find)
+// cost를 오름차순으로 정렬 후 
+// 가장 처음 전체 섬을 연결했을 때의 비용을 반환 
 function solution (n, costs) {
     var answer = 0;
     costs.sort((a, b) => a[2] - b[2])

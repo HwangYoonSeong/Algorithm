@@ -1,3 +1,3 @@
-var arr = [{ test: { one: 1 } }, { test: { one: 2 } }, { test: { one: 3 } }];
-arr.splice(0, 1);
-console.log(arr);
+var a = 2; //0010
+var b = 3; //0011
+console.log(a | b);

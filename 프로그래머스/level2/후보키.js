@@ -38,12 +38,37 @@ function solution (relation) {
 
     for (var i = 2; i <= dupKey.length; i++) {
         getCombinations(dupKey, i).forEach(el => {
-            
+
         })
 
     }
     return answer;
 }
 
-console.log(solution([["100", "ryan", "music", "2"], ["200", "apeach", "math", "2"], ["300", "tube", "computer", "3"], ["400", "con", "computer", "4"], ["500", "muzi", "music", "3"], ["600", "apeach", "music", "2"]]));
 
+//모범 답안 
+function solution2 (relation) {
+    const cols = relation[0].length;
+
+    const check = 1 << cols;
+    console.log(check);
+    const answer = new Set();
+
+    for (let i = 0; i < check; i++) {
+        let temp = relation.map(x => x.filter((_, col) => i & (1 << col)).join(""));
+        //console.log(temp);
+        const set = new Set(temp);
+        if (temp.length === set.size) answer.add(i); //유일성 검사 
+    }
+
+    for (let x of answer) {
+        for (let y of answer) {
+
+            if (x >= y) continue;
+            if ((x & y) === x) answer.delete(y); //최소성 검사
+        }
+    }
+
+    return answer.size;
+}
+console.log(solution2([["100", "ryan", "music", "2"], ["200", "apeach", "math", "2"], ["300", "tube", "computer", "3"], ["400", "con", "computer", "1"], ["500", "muzi", "music", "3"], ["600", "apeach", "music", "2"]]));

@@ -1,5 +1,5 @@
 // 재귀형식으로 풀이 >> 실패 
-// function solution (clothes) {
+// function solution1 (clothes) {
 //     var answer = 0;
 //     var type = new Set();
 
@@ -67,7 +67,8 @@
 //     return answer;
 // }
 
-function solution (clothes) {
+
+function solution2 (clothes) {
     var answer = 0;
     var type = new Set();
 
@@ -103,13 +104,24 @@ function solution (clothes) {
     return answer - 1;
 }
 
+//hash를 이용한 정답코드
+function solution2 (clothes) {
+    var answer = 1;
+    var hash = {};
 
-console.log(solution([["a", "aa"],
-["b", "aa"],
-["c", "aa"],
-["a_a", "bb"],
-["b_b", "bb"],
-["c_c", "bb"],
-["aaa", "cc"],
-["bbb", "cc"],
-["ccc", "cc"]]));
+    for (let val of clothes) {
+        if (!hash[val[1]]) hash[val[1]] = 0;
+        hash[val[1]]++;
+    }
+
+
+    for (let key in hash) {
+        answer *= (hash[key] + 1)
+    }
+
+
+    return answer - 1;
+}
+
+
+console.log(solution2([["crowmask", "face"], ["bluesunglasses", "face"], ["smoky_makeup", "face"]]));

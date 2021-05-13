@@ -1,4 +1,4 @@
-function solution (genres, plays) {
+function solution1 (genres, plays) {
     var answer = [];
     var gSet = Array.from(new Set(genres));
     //var gCount = Array.from({ length: gSet.length }, () => 0);
@@ -55,5 +55,43 @@ function solution (genres, plays) {
     return answer;
 }
 
-console.log(solution(['classic', 'pop', 'classic', 'classic', 'pop'], [500, 600, 150, 800, 2500]));
+//hash 이용
+function solution2 (genres, plays) {
+    var answer = [];
+    var hash = {};
+    var gp = [];
+
+    for (var i = 0; i < genres.length; i++) {
+        if (!hash[genres[i]]) hash[genres[i]] = 0;
+        hash[genres[i]] += plays[i];
+    }
+
+    let sortobj = [];
+    for (let i in hash) {
+        sortobj.push([i, hash[i]]);
+    }
+    sortobj.sort(function (a, b) {
+        return b[1] - a[1];
+    });
+
+    for (var i = 0; i < genres.length; i++) {
+        gp.push([i, genres[i], plays[i]]);
+    }
+    gp.sort(function (a, b) {
+        return b[2] - a[2];
+    });
+    for (var i of sortobj) {
+        var temp = gp.filter(el => el[1] === i[0])
+        if (temp.length === 1) {
+            answer.push(temp[0][0])
+        } else {
+            answer.push(temp[0][0])
+            answer.push(temp[1][0])
+        }
+
+    }
+
+    return answer;
+}
+console.log(solution2(["classic", "classic", "classic", "classic", "pop"], [500, 150, 800, 800, 2500]));
 

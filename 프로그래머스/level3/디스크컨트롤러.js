@@ -32,16 +32,19 @@
 // }
 
 
-const solution = (jobs) => {
+const solution2 = (jobs) => {
     let answer = 0,
         j = 0,
         time = 0;
+    // 하드디스크가 작업을 수행하고 있지 않을 때에는 먼저 요청이 들어온 작업 부터(문제의 제한사항)
     jobs.sort((a, b) => {
         return a[0] - b[0];
     });
 
+
     const priorityQueue = [];
     while (j < jobs.length || priorityQueue.length !== 0) {
+        // 작업 수행 중 다른 작업들은 우선순위 큐에 넣어서 정렬 
         if (jobs.length > j && time >= jobs[j][0]) {
             priorityQueue.push(jobs[j++]);
             priorityQueue.sort((a, b) => {
@@ -49,6 +52,8 @@ const solution = (jobs) => {
             });
             continue;
         }
+        // 새로운 작업의 경우 우선순위 큐 shift 
+        // 동시에 걸린 시간 누적하여 계산 
         if (priorityQueue.length !== 0) {
             time += priorityQueue[0][1];
             answer += time - priorityQueue[0][0];
@@ -59,4 +64,3 @@ const solution = (jobs) => {
     }
     return parseInt(answer / jobs.length);
 };
-console.log(solution([[0, 3], [1, 9], [2, 6]]));

@@ -1,3 +1,3 @@
-var a = 2; //0010
-var b = 3; //0011
-console.log(a | b);
+var a = [32, 51, 55, 14, 20, 64, 11, 33, 20, 64]
+
+console.log(a.join(','));

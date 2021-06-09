@@ -48,6 +48,11 @@ function solution (numbers) {
 
     var answer = numbers.map(c => c + '').
         sort((a, b) => (b + a) - (a + b)).join('');
+    // ex) 문자열인 경우 '30'+'3'= '303' '3'+'30'= '330'이므로 비교 가능 
 
     return answer[0] === '0' ? '0' : answer;
 }
+
+
+
+console.log(solution([3, 30, 34, 5, 9]));

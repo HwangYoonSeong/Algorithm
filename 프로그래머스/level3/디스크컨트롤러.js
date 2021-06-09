@@ -42,9 +42,10 @@ const solution2 = (jobs) => {
     });
 
 
+    // 이런 생각을 하게된 계기 
     const priorityQueue = [];
-    while (j < jobs.length || priorityQueue.length !== 0) {
-        // 작업 수행 중 다른 작업들은 우선순위 큐에 넣어서 정렬 
+    while (j < jobs.length || priorityQueue.length !== 0) {  // 수행중인 작업이 있을 경우 
+        // 작업 수행 중에 다른 작업이 존재할 경우 우선순위 큐에 넣어서 정렬 해둠 
         if (jobs.length > j && time >= jobs[j][0]) {
             priorityQueue.push(jobs[j++]);
             priorityQueue.sort((a, b) => {

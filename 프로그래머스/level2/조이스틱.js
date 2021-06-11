@@ -62,8 +62,8 @@
 //조이스틱으로 알파벳 이름을 완성하세요.
 //1. 맨 처음엔 A로만 이루어져 있습니다. ex) 완성해야 하는 이름이 세 글자면 AAA, 네 글자면 AAAA
 //2. 알파벳은 대문자로만 이루어져 있습니다.
-//3. 위로 A -> B -> C 이 순서대로 다음 알파뱃으로 이동한다.
-//4. 아래오 A -> Z 이 순서대로 다음 알파뱃으로 이동한다
+//3. 위로 A -> B -> C 이 순서대로 다음 알파벳으로 이동한다.
+//4. 아래로 A -> Z 이 순서대로 다음 알파벳으로 이동한다
 //5. 왼쪽으로 첫번쨰 위치에서 왼쪽으로 이동하면 마지막 문자에 커서
 //6. 오른쪽으로 이동 다음 문자로 이동
 
@@ -101,16 +101,17 @@ function leftright (name, index) {
     let right = 1;
     let rightindex = index;
     let leftindex = index;
+
     while (true) {
         rightindex++;
-        if (rightindex === name.length) {
+        if (rightindex === name.length) { //이동 했는데 전부다 A라서 마지막 까지 도달한 경우 
             rightindex = 0;
         }
-        if (name[rightindex] !== 'A') {
+        if (name[rightindex] !== 'A') { // A가 아닌 곳까지 count
             break;
         }
         else {
-            right++;
+            right++; // A이면 그냥 이동 
         }
     }
     while (true) {
@@ -128,6 +129,7 @@ function leftright (name, index) {
     if (left === right) {
         return [right, rightindex];
     }
+    // right와 left 방향 별 이동 count 계산 후 count가 적은 방향 선택 
     return left > right ? [right, rightindex] : [left, leftindex];
 }
 
@@ -140,7 +142,8 @@ function solution (name) {
     //가장 가까운 a 값을 찾는다...
     let updown = name.split("").map(element => alphaMove(element))
     updown = updown.reduce((acc, cur) => (acc + cur), 0);
-    //while 문을 돌린다. cpname 을 전부 AAAAA로 바꿀떄까지 맞춘다
+
+    //while 문을 돌린다. cpname 을 전부 AAAAA로 바꿀 때까지 맞춘다
     cpname = cpname.split("");
     cpname[0] = "A";
     let nowindex = 0;

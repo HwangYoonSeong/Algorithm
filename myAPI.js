@@ -52,7 +52,9 @@ const getCombinations = function (arr, selectNumber) {
 }
 
 
+
 //순열((1,2)!==(2,1))
+// 중복 검사 x 
 const getPermutations = function (arr, selectNumber) {
     const results = [];
     if (selectNumber === 1) return arr.map((value) => [value]); // 1개씩 택할 때, 바로 모든 배열의 원소 return
@@ -68,7 +70,8 @@ const getPermutations = function (arr, selectNumber) {
 }
 
 
-//소수 찾기
+
+// list 중에서 소수 찾기
 list.forEach((el, idx) => {
     isPrime = true;
 

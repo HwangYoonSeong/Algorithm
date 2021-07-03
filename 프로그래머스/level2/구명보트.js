@@ -6,15 +6,15 @@ function solution (people, limit) {
 
     while (l < r) {
         var sum = people[l] + people[r]
-        if (sum > limit) {
+        if (sum > limit) { //한 명만 탑승
             l++
-        } else {
+        } else { // 두명 탑승 
             l++
             r--
         }
-        answer++
+        answer++ //보트 추가 
     }
-    if (l == r) answer++
+    if (l == r) answer++ // 마지막에 한명 남을 경우 보트 추가
     return answer
 }
 

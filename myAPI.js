@@ -1,3 +1,8 @@
+//배열 총합(reduce)
+console.log(people.reduce(function add (sum, cur) {
+    return sum + cur;
+}, 0));
+
 //2차원 배열 생성
 const arr2 = Array.from(Array(9), () => Array(9).fill(0))
 arr2[0][0] = 2;

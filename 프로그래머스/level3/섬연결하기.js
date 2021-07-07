@@ -1,5 +1,5 @@
 // 4,7,8 런타임 에러 
-function solution2 (n, costs) {
+function solution1 (n, costs) {
     var answer = 0;
     var costsList = [];
     for (var i = 0; i < costs.length; i++) {
@@ -76,13 +76,13 @@ function solution2 (n, costs) {
 // 모범 답안 (Union-Find)
 // cost를 오름차순으로 정렬 후 
 // 가장 처음 전체 섬을 연결했을 때의 비용을 반환 
-function solution (n, costs) {
+// MST 기본 문제 (Kruscal 사용)
+function solution2 (n, costs) {
     var answer = 0;
     costs.sort((a, b) => a[2] - b[2])
-    console.log(costs);
     var cycleTable = Array(n).fill(0).map((element, index) => index)
 
-    while (!isOne(cycleTable)) {
+    while (!isOne(cycleTable)) { //union-find 
         var current = costs.shift()
         var one = current[0]
         var the_other = current[1]
@@ -92,6 +92,7 @@ function solution (n, costs) {
             answer += cost
         }
     }
+
     return answer;
 }
 
@@ -99,17 +100,63 @@ function changeCycleTableNumber (cycleTable, one, the_other) {
     var cycleTheOther = cycleTable[the_other]
     var cycleOne = cycleTable[one]
     for (var i = 0; i < cycleTable.length; i++) {
-        if (cycleTable[i] === cycleTheOther) cycleTable[i] = cycleOne
+        if (cycleTable[i] === cycleTheOther) cycleTable[i] = cycleOne //부모노드 찾아서 초기화 
     }
     return cycleTable
 }
 
-function isOne (cycleTable) {
+function isOne (cycleTable) { //모든 요소가 같은지 검사 
     for (var i = 1; i < cycleTable.length; i++) {
         if (cycleTable[i - 1] !== cycleTable[i]) return false
     }
     return true
 }
 
+// Standard Union-find 
+function solution3 (n, costs) {
+    var answer = 0;
+    costs.sort((a, b) => a[2] - b[2])
+    var cycleTable = Array(n).fill(0).map((element, index) => index)
 
-console.log(solution(4, [[0, 1, 1], [0, 2, 2], [1, 2, 5], [1, 3, 1], [2, 3, 8]]));
+    costs.forEach(el => {
+        if (!findParent(cycleTable, el[0], el[1])) {
+            unionParent(cycleTable, el[0], el[1]);
+            answer += el[2];
+        }
+    })
+    return answer;
+}
+
+// 부모 노드를 찾는 재귀함수
+function getParent (arr, x) {
+    if (arr[x] === x) return x;
+    return arr[x] = getParent(arr, arr[x]);
+}
+
+// 두 개의 노드를 같은 부모 노드로 합친다.
+function unionParent (arr, a, b) {
+    a = getParent(arr, a);
+    b = getParent(arr, b);
+
+    // 두 노드 중 작은 부모 노드값을 가진 값으로 합친다.
+    if (a < b)
+        arr[b] = a;
+    else
+        arr[a] = b;
+
+}
+
+// 같은 부모 노드를 갖는지 확인한다.
+function findParent (arr, a, b) {
+    a = getParent(arr, a);
+    b = getParent(arr, b);
+
+    if (a === b)
+        return true;
+    else
+        return false;
+}
+
+
+
+console.log(solution3(4, [[0, 1, 1], [0, 2, 2], [1, 2, 5], [1, 3, 1], [2, 3, 8]]));

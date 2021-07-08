@@ -119,9 +119,9 @@ function solution3 (n, costs) {
     var cycleTable = Array(n).fill(0).map((element, index) => index)
 
     costs.forEach(el => {
-        if (!findParent(cycleTable, el[0], el[1])) {
-            unionParent(cycleTable, el[0], el[1]);
-            answer += el[2];
+        if (!findParent(cycleTable, el[0], el[1])) { //추가할 노드가 같은 합집합이 아닐 경우 
+            unionParent(cycleTable, el[0], el[1]); // union 
+            answer += el[2]; //cost 추가 
         }
     })
     return answer;

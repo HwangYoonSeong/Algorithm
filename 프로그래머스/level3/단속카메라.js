@@ -47,15 +47,17 @@ function solution (routes) {
 const solution2 = (routes) => {
     let answer = 0;
     routes.sort((a, b) => {
-        return a[1] - b[1];
+        return a[1] - b[1]; // 각 차량의 마지막 지점 기준 오름차순 
     });
+    console.log(routes);
     let camera = -30001;
     for (let i = 0; i < routes.length; i++) {
-        if (camera < routes[i][0]) {
+        if (camera < routes[i][0]) { // 처음 지점이 이전 카메라 위치보다 작을 경우 이미 해당 차량은 카메라를 지난다.
             answer++;
-            camera = routes[i][1];
+            camera = routes[i][1]; // 따라서 카메라 위치보다 클 경우에만 해당 차량의 종료위치에 카메라를 설치한다. 
+            // 이는 차량이 카메라를 지날 수 있는 마지막 위치이다.(최대의 위치)
         }
     }
     return answer;
 };
-console.log(solution([[-20, 15], [-14, -5], [-18, -13], [-5, -3]]));
+console.log(solution2([[-20, 15], [-14, -5], [-18, -13], [-5, -3]]));
